@@ -126,7 +126,7 @@ if st.session_state.df is not None:
     # 常に最新の session_state.df をエディタに渡す
     # keyを変更せずに運用するため、編集結果を直接受け取る
     st.subheader("編集エディタ")
-    st.info("特定の列はプルダウンから選択できます。")
+    st.info("ステータスの列はプルダウンから選択できます。")
 
     # 1. プルダウンの選択肢を定義
     status_options = ["新規", "更新", "休止", "廃止", "非表示"]
