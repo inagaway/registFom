@@ -131,6 +131,37 @@ if st.session_state.df is not None:
     # 1. プルダウンの選択肢を定義
     status_options = ["新規", "更新", "休止", "廃止", "非表示"]
     possibility_options = ["可", "非"]
+    category_options = [
+        "家事支援",
+        "遺品整理",
+        "高齢者向け配食サービス",
+        "フードデリバリー",
+        "食料品配達",
+        "移動販売",
+        "福祉タクシー",
+        "コミュニティバス",
+        "見守り安否確認",
+        "住宅型有料老人ホーム",
+        "サービス付き高齢者向け住宅",
+        "高齢者住みかえ支援",
+        "住宅改修",
+        "サロン・通いの場",
+        "趣味・交流の場",
+        "市民団体",
+        "ボランティア",
+        "自治体",
+        "ボランティア制度受入れ施設",
+        "訪問診療",
+        "訪問歯科診療",
+        "訪問調剤",
+        "訪問マッサージ",
+        "訪問理美容",
+        "訪問入浴",
+        "フレイル予防教室",
+        "介護予防教室",
+        "スポーツジム・フィットネスクラブ",
+        "その他",
+    ]
 
     # 2. st.data_editor の設定
     edited_df = st.data_editor(
@@ -141,7 +172,7 @@ if st.session_state.df is not None:
         column_config={
             "ステータス": st.column_config.SelectboxColumn(
                 "ステータス",
-                help="現在の状態を選択してください",
+                help="ステータスを選択してください",
                 options=status_options,
                 required=True,
             ),
@@ -149,6 +180,12 @@ if st.session_state.df is not None:
                 "事業所住所掲載可否",
                 help="住所の掲載可否を選択してください",
                 options=possibility_options,
+                required=True,
+            ),
+            "小カテゴリ": st.column_config.SelectboxColumn(
+                "事業所住所掲載可否",
+                help="カテゴリを選択してください",
+                options=category_options,
                 required=True,
             ),
         },
