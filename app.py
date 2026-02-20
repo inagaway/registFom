@@ -183,11 +183,11 @@ if st.session_state.df is not None:
                 required=True,
             ),
             "小カテゴリ": st.column_config.SelectboxColumn(
-                "事業所住所掲載可否",
+                "小カテゴリ",
                 help="カテゴリを選択してください",
                 options=category_options,
                 required=True,
-            ),
+            )
         },
         num_rows="dynamic",  # 行の追加・削除を許可する場合
     )
