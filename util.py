@@ -11,7 +11,8 @@ import const_category
 def load_kanagawa_master():
     try:
         df_master = pd.read_csv("kanagawa_towns.csv", encoding="utf-8-sig")
-        master_dict = df_master.groupby("市区町村名")["町名"].apply(list).to_dict()
+        # プルダウン用の文字列リストを作成 (条件5用)
+        master_dict = df_master.groupby("市区町村名", sort=False)["町名"].apply(list).to_dict()
         code_map = {}
         for _, row in df_master.iterrows():
             code_map[(row["市区町村名"], row["町名"])] = {
@@ -26,6 +27,28 @@ def load_kanagawa_master():
 
 KANAGAWA_MASTER, CODE_MAP = load_kanagawa_master()
 
+
+@st.cache_data
+def load_kanagawa_master():
+    try:
+        df_master = pd.read_csv("kanagawa_towns.csv", encoding="utf-8-sig")
+        # プルダウン用の文字列リストを作成 (条件5用)
+        copy_list = df_master.apply(
+            lambda x: f"{x['市区町村名']},{x['町名']},{x['市区町村コード']},{x['町域コード']}", axis=1
+        ).tolist()
+        code_map = {}
+        for _, row in df_master.iterrows():
+            code_map[(row["市区町村名"], row["町名"])] = {
+                "city_code": str(row["市区町村コード"]),
+                "town_code": str(row["町域コード"]),
+            }
+        return copy_list, code_map
+    except Exception as e:
+        st.error(f"マスターCSVの読み込みに失敗しました: {e}")
+        return {}, {}
+
+
+COPY_LIST, CODE_MAP = load_kanagawa_master()
 
 # --- 3. 外部API連携 ---
 def get_addr_from_zip(zip_code):
