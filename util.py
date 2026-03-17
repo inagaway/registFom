@@ -10,7 +10,7 @@ import const_category
 @st.cache_data
 def load_kanagawa_master():
     try:
-        df_master = pd.read_csv("kanagawa_towns.csv", encoding="utf-8-sig")
+        df_master = pd.read_csv("kanagawa_towns.csv", dtype={'column_name': 'int64'}, encoding="utf-8-sig")
         # プルダウン用の文字列リストを作成 (条件5用)
         master_dict = df_master.groupby("市区町村名", sort=False)["町名"].apply(list).to_dict()
         code_map = {}
