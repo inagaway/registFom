@@ -31,7 +31,7 @@ KANAGAWA_MASTER, CODE_MAP = load_kanagawa_master()
 @st.cache_data
 def load_kanagawa_master():
     try:
-        df_master = pd.read_csv("kanagawa_towns.csv", encoding="utf-8-sig")
+        df_master = pd.read_csv("kanagawa_towns.csv", dtype={'column_name': 'int64'}, encoding="utf-8-sig")
         # プルダウン用の文字列リストを作成 (条件5用)
         copy_list = df_master.apply(
             lambda x: f"{x['市区町村名']},{x['町名']},{x['市区町村コード']},{x['町域コード']}", axis=1
